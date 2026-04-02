@@ -1,111 +1,156 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pro Trading Dashboard</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #020617;
-      color: white;
-    }
-    header {
-      padding: 15px;
-      text-align: center;
-      background: #020617;
-      color: #38bdf8;
-      font-size: 22px;
-      border-bottom: 1px solid #1e293b;
-    }
-    .container {
-      padding: 15px;
-    }
-    .card {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-    }
-    select, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
-    }
-    button {
-      background: #38bdf8;
-      cursor: pointer;
-    }
-    iframe {
-      width: 100%;
-      height: 300px;
-      border-radius: 10px;
-      border: none;
-    }
-    .signal {
-      font-size: 20px;
-      text-align: center;
-      margin-top: 10px;
-    }
-  </style>
+<title>Pro Trading Dashboard</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #020617;
+    color: white;
+}
+
+header {
+    padding: 15px;
+    text-align: center;
+    color: #38bdf8;
+    font-size: 22px;
+    border-bottom: 1px solid #1e293b;
+}
+
+.container {
+    padding: 15px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: #38bdf8;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.signal {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.buy { color: #22c55e; }
+.sell { color: #ef4444; }
+
+.balance {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+</style>
 </head>
+
 <body>
 
-<header>
-  🚀 Pro Trading Dashboard
-</header>
+<header>🚀 Pro Trading Dashboard</header>
 
 <div class="container">
 
-  <div class="card">
-    <h3>Pilih Pair</h3>
-    <select id="pair" onchange="updateChart()">
-      <option value="BINANCE:BTCUSDT">BTC/USDT</option>
-      <option value="BINANCE:ETHUSDT">ETH/USDT</option>
-      <option value="OANDA:XAUUSD">GOLD (XAUUSD)</option>
-    </select>
-  </div>
+<div class="card">
+<div class="balance">💰 Balance: $<span id="balance">1000</span></div>
+</div>
 
-  <div class="card">
-    <h3>Chart</h3>
-    <iframe id="chart" src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1&theme=dark"></iframe>
-  </div>
+<div class="card">
+<label>Pilih Pair</label>
+<select id="pair">
+<option>BTC/USDT</option>
+<option>ETH/USDT</option>
+<option>GOLD</option>
+</select>
+</div>
 
-  <div class="card">
-    <h3>Signal Trading</h3>
-    <div id="signal" class="signal">Menunggu analisa...</div>
-    <button onclick="generateSignal()">Generate Signal</button>
-  </div>
+<div class="card">
+<div id="chart"></div>
+<script src="https://s3.tradingview.com/tv.js"></script>
+<script>
+new TradingView.widget({
+  "width": "100%",
+  "height": 300,
+  "symbol": "BINANCE:BTCUSDT",
+  "interval": "1",
+  "theme": "dark",
+  "container_id": "chart"
+});
+</script>
+</div>
 
-  <div class="card">
-    <h3>Tips</h3>
-    <button onclick="alert('Gunakan SL 1-2% dan jangan overtrade!')">
-      Tips Trading
-    </button>
-  </div>
+<div class="card">
+<h3>Signal Trading</h3>
+<div id="status">Menunggu analisa...</div>
+<button onclick="generateSignal()">Generate Signal</button>
+<div id="result" class="signal"></div>
+</div>
+
+<div class="card">
+<h3>Tips</h3>
+<button onclick="showTips()">Tips Trading</button>
+<div id="tips"></div>
+</div>
 
 </div>
 
 <script>
-function updateChart() {
-  var pair = document.getElementById("pair").value;
-  document.getElementById("chart").src =
-    "https://s.tradingview.com/widgetembed/?symbol=" + pair + "&interval=1&theme=dark";
-}
+let balance = 1000;
 
 function generateSignal() {
-  var rand = Math.random();
-  var signal = document.getElementById("signal");
+    let status = document.getElementById("status");
+    let result = document.getElementById("result");
 
-  if (rand > 0.5) {
-    signal.innerHTML = "📈 BUY";
-    signal.style.color = "lime";
-  } else {
-    signal.innerHTML = "📉 SELL";
-    signal.style.color = "red";
-  }
+    status.innerHTML = "Analyzing market...";
+    result.innerHTML = "";
+
+    setTimeout(() => {
+        let signal = Math.random() > 0.5 ? "BUY" : "SELL";
+        let entry = (Math.random() * 1000).toFixed(2);
+        let sl = (entry - 50).toFixed(2);
+        let tp = (parseFloat(entry) + 100).toFixed(2);
+
+        let profit = Math.floor(Math.random() * 50);
+        balance += profit;
+
+        document.getElementById("balance").innerHTML = balance;
+
+        result.className = "signal " + (signal === "BUY" ? "buy" : "sell");
+        result.innerHTML = `
+        ${signal} <br>
+        Entry: ${entry} <br>
+        SL: ${sl} <br>
+        TP: ${tp} <br>
+        Profit: +$${profit}
+        `;
+
+        status.innerHTML = "Signal siap!";
+    }, 2000);
+}
+
+function showTips() {
+    let tipsList = [
+        "Gunakan risk management",
+        "Jangan overtrade",
+        "Ikuti trend market",
+        "Gunakan stop loss",
+        "Jangan FOMO"
+    ];
+
+    let random = tipsList[Math.floor(Math.random() * tipsList.length)];
+    document.getElementById("tips").innerHTML = random;
 }
 </script>
 
