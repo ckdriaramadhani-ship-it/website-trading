@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pro Trading Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #020617;
+      color: white;
+    }
+    header {
+      padding: 15px;
+      text-align: center;
+      background: #020617;
+      color: #38bdf8;
+      font-size: 22px;
+      border-bottom: 1px solid #1e293b;
+    }
+    .container {
+      padding: 15px;
+    }
+    .card {
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background: #38bdf8;
+      cursor: pointer;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border-radius: 10px;
+      border: none;
+    }
+    .signal {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  🚀 Pro Trading Dashboard
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h3>Pilih Pair</h3>
+    <select id="pair" onchange="updateChart()">
+      <option value="BINANCE:BTCUSDT">BTC/USDT</option>
+      <option value="BINANCE:ETHUSDT">ETH/USDT</option>
+      <option value="OANDA:XAUUSD">GOLD (XAUUSD)</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h3>Chart</h3>
+    <iframe id="chart" src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1&theme=dark"></iframe>
+  </div>
+
+  <div class="card">
+    <h3>Signal Trading</h3>
+    <div id="signal" class="signal">Menunggu analisa...</div>
+    <button onclick="generateSignal()">Generate Signal</button>
+  </div>
+
+  <div class="card">
+    <h3>Tips</h3>
+    <button onclick="alert('Gunakan SL 1-2% dan jangan overtrade!')">
+      Tips Trading
+    </button>
+  </div>
+
+</div>
+
+<script>
+function updateChart() {
+  var pair = document.getElementById("pair").value;
+  document.getElementById("chart").src =
+    "https://s.tradingview.com/widgetembed/?symbol=" + pair + "&interval=1&theme=dark";
+}
+
+function generateSignal() {
+  var rand = Math.random();
+  var signal = document.getElementById("signal");
+
+  if (rand > 0.5) {
+    signal.innerHTML = "📈 BUY";
+    signal.style.color = "lime";
+  } else {
+    signal.innerHTML = "📉 SELL";
+    signal.style.color = "red";
+  }
+}
+</script>
+
+</body>
+</html>
