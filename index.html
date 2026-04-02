@@ -1,58 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>🚀 Pro Trading Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚀 Trading Signal Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #020617;
-      color: white;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #020617;
+  color: white;
+}
 
-    header {
-      padding: 15px;
-      text-align: center;
-      color: #38bdf8;
-      font-size: 22px;
-      border-bottom: 1px solid #1e293b;
-    }
+header {
+  text-align: center;
+  padding: 15px;
+  color: #38bdf8;
+}
 
-    .container {
-      padding: 15px;
-    }
+.container {
+  padding: 15px;
+}
 
-    .card {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-    }
+.card {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
 
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
-      background: #38bdf8;
-      font-weight: bold;
-      cursor: pointer;
-    }
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #38bdf8;
+  font-weight: bold;
+}
 
-    .vip {
-      background: #22c55e;
-      color: black;
-    }
+.vip {
+  background: #22c55e;
+}
 
-    .signal {
-      text-align: center;
-      margin-top: 10px;
-    }
-  </style>
+.lock {
+  color: #ef4444;
+  text-align: center;
+}
+</style>
 </head>
 
 <body>
@@ -61,38 +55,31 @@
 
 <div class="container">
 
-  <!-- SIGNAL -->
-  <div class="card">
-    <h3>Signal Hari Ini</h3>
-    <button onclick="generateSignal()">Generate Signal</button>
-    <div id="signal" class="signal">Klik untuk analisa</div>
-  </div>
+<div class="card">
+<h3>Signal Gratis</h3>
+<button onclick="generateSignal()">Generate Signal</button>
+<div id="signal"></div>
+</div>
 
-  <!-- TESTIMONI -->
-  <div class="card">
-    <h3>Testimoni</h3>
-    <p>🔥 “Profit 120$ dalam 2 hari!”</p>
-    <p>🔥 “Signal akurat banget!”</p>
-    <p>🔥 “Worth it join VIP!”</p>
-  </div>
+<div class="card">
+<h3>VIP Signal 🔒</h3>
+<div id="vipSignal" class="lock">
+🔒 Khusus Member VIP
+</div>
+<button class="vip" onclick="joinVIP()">Buka Akses VIP</button>
+</div>
 
-  <!-- CTA -->
-  <div class="card">
-    <h3>Join VIP Signal</h3>
-    <p>Dapatkan signal lebih akurat + entry lengkap</p>
-    <button class="vip" onclick="joinVIP()">Join VIP Sekarang</button>
-  </div>
-
-  <!-- AFFILIATE -->
-  <div class="card">
-    <h3>Mulai Trading</h3>
-    <p>Daftar exchange & mulai trading sekarang</p>
-    <button onclick="openExchange()">Daftar Sekarang</button>
-  </div>
+<div class="card">
+<h3>Login VIP</h3>
+<input type="password" id="vipCode" placeholder="Masukkan kode VIP">
+<button onclick="loginVIP()">Login</button>
+</div>
 
 </div>
 
 <script>
+let isVIP = false;
+
 function generateSignal() {
   let signals = ["BUY 🚀", "SELL 🔻"];
   let result = signals[Math.floor(Math.random() * signals.length)];
@@ -100,12 +87,32 @@ function generateSignal() {
   document.getElementById("signal").innerHTML = result;
 }
 
-function joinVIP() {
-  alert("Hubungi WhatsApp: 08xxxxxxxxxx");
+function loginVIP() {
+  let code = document.getElementById("vipCode").value;
+
+  if (code === "123VIP") {
+    isVIP = true;
+    showVIP();
+  } else {
+    alert("Kode salah!");
+  }
 }
 
-function openExchange() {
-  window.open("https://www.binance.com/", "_blank");
+function showVIP() {
+  let entry = (Math.random()*1000).toFixed(2);
+  let sl = (entry - 50).toFixed(2);
+  let tp = (parseFloat(entry) + 100).toFixed(2);
+
+  document.getElementById("vipSignal").innerHTML = `
+  ✅ VIP SIGNAL<br>
+  Entry: ${entry}<br>
+  SL: ${sl}<br>
+  TP: ${tp}
+  `;
+}
+
+function joinVIP() {
+  window.open("https://wa.me/6285624264725", "_blank");
 }
 </script>
 
