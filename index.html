@@ -1,197 +1,232 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>🚀 Trading Signal Pro</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚀 Trading Signal Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style> 
-  * { 
-   box-sizing: border-box;
-}
- img, iframe {
-  max-width: 100%;
-  height: auto;
-}
- .chart-container {
-  width: 100%;
-  overflow: hidden;
-}
- button {
-  width: 100%;
-  max-width: 100%;
-}
- body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-} 
+  <style>
+    * { box-sizing: border-box; }
 
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #020617;
-  color: white;
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #020617;
+      color: white;
+    }
 
-header {
-  text-align: center;
-  padding: 15px;
-  color: #38bdf8;
-}
+    .header {
+      text-align: center;
+      padding: 15px;
+      border-bottom: 1px solid #1e293b;
+    }
 
-.container {
-  padding: 15px;
-}
+    .header h2 {
+      margin: 0;
+      color: #38bdf8;
+    }
 
-.card {
-  background: #1e293b;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
+    .container {
+      padding: 15px;
+    }
 
-button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  background: #38bdf8;
-  font-weight: bold;
-}
+    .card {
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      animation: fadeIn 0.4s ease;
+    }
 
-.vip {
-  background: #22c55e;
-}
+    @keyframes fadeIn {
+      from {opacity:0; transform: translateY(10px);}
+      to {opacity:1; transform: translateY(0);}
+    }
 
-.lock {
-  color: #ef4444;
-  text-align: center;
-}
-</style> <style>
-body {
-  margin: 0;
-}
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 15px;
+    }
 
-.btn-profit {
-  width: 100%;
-  padding: 15px;
-  background: linear-gradient(45deg, #00c853, #64dd17);
-  border: none;
-  border-radius: 10px;
-  color: black;
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-</style>
-}
+    .btn-signal {
+      background: linear-gradient(45deg, #38bdf8, #0ea5e9);
+      color: black;
+    }
+
+    .btn-profit {
+      background: linear-gradient(45deg, #22c55e, #4ade80);
+      color: black;
+    }
+
+    .profit {
+      color: #22c55e;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 10px;
+    }
+
+    iframe {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    /* POPUP */
+    #popup {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #0f172a;
+      padding: 20px;
+      text-align: center;
+      border-top: 2px solid #38bdf8;
+      animation: slideUp 0.5s ease;
+    }
+
+    @keyframes slideUp {
+      from {transform: translateY(100%);}
+      to {transform: translateY(0);}
+    }
+
+  </style>
 </head>
 
-<body> <!-- POPUP -->
-<div id="popup" style="display:none;position:fixed;bottom:20px;left:20px;right:20px;background:#1e293b;padding:15px;border-radius:10px;text-align:center;">
-  <p>🎁 Dapatkan bonus trading untuk pemula!</p>
-  <button onclick="claimBonus()" style="background:#22c55e;">Claim Bonus</button>
-</div>
+<body>
 
-<header>🚀 Trading Signal Pro</header>
+<div class="header">
+  <h2>🚀 Trading Signal Pro</h2>
+  <p style="font-size:12px;color:gray;">Simple AI Trading Tools</p>
+</div>
 
 <div class="container">
 
-<div class="card">
-<h3>Signal Gratis</h3>
-<button onclick="generateSignal()">Generate Signal</button>
-<div id="signal"></div>
+  <!-- PROFIT -->
+  <div class="card">
+    <h3>💰 Profit Hari Ini</h3>
+    <p id="profit" class="profit">+$0</p>
+  </div>
+
+  <!-- SIGNAL -->
+  <div class="card">
+    <h3>Signal Gratis</h3>
+    <button class="btn btn-signal" onclick="generateSignal()">Generate Signal</button>
+    <p id="result">Sisa 3x signal hari ini</p>
+  </div>
+
+  <!-- CHART -->
+  <div class="card">
+    <h3>📊 Live Chart</h3>
+    <iframe 
+      src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=15&theme=dark"
+      width="100%" height="300">
+    </iframe>
+  </div>
+
+  <!-- VIP -->
+  <div class="card">
+    <h3>VIP Signal 🔒</h3>
+    <p>Signal lebih akurat + entry lengkap</p>
+    <button class="btn btn-profit" onclick="joinVIP()">Join VIP</button>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="card">
+    <h3>Login VIP</h3>
+    <input id="vipCode" placeholder="Masukkan kode VIP">
+    <button class="btn btn-signal" onclick="loginVIP()">Login</button>
+  </div>
+
+  <!-- BONUS -->
+  <div class="card">
+    <h3>🔥 Mulai Trading</h3>
+    <p>Gunakan platform terpercaya untuk pemula</p>
+    <button class="btn btn-profit" onclick="goAjaib()">Daftar Ajaib</button>
+  </div>
+
 </div>
 
-<div class="card">
-<h3>VIP Signal 🔒</h3>
-<div id="vipSignal" class="lock">
-🔒 Khusus Member VIP
-</div>
-<button class="vip" onclick="joinVIP()">Buka Akses VIP</button>
-</div>
-
-<div class="card">
-<h3>Login VIP</h3>
-<input type="password" id="vipCode" placeholder="Masukkan kode VIP">
-<button onclick="loginVIP()">Login</button>
-</div>
-
+<!-- POPUP -->
+<div id="popup">
+  <h3>🎁 Bonus Tersedia!</h3>
+  <p>Daftar sekarang & mulai trading</p>
+  <button class="btn btn-profit" onclick="goAjaib()">Claim Bonus</button>
 </div>
 
 <script>
-let isVIP = false;
 
+let signalLimit = 3;
+let profit = 0;
+
+// Profit naik (visual)
+setInterval(() => {
+  profit += Math.floor(Math.random()*7);
+  document.getElementById("profit").innerText = "+$" + profit;
+}, 2000);
+
+// Popup auto
+setTimeout(() => {
+  document.getElementById("popup").style.display = "block";
+}, 6000);
+
+// Generate signal
 function generateSignal() {
-  let el = document.getElementById("signal");
 
-  // loading AI
-  el.innerHTML = "🤖 AI analyzing market...";
-  
+  if(signalLimit <= 0){
+    document.getElementById("result").innerHTML = "❌ Limit habis (VIP only)";
+    return;
+  }
+
+  signalLimit--;
+
+  let el = document.getElementById("result");
+  el.innerHTML = "🤖 AI analyzing...";
+
   setTimeout(() => {
-    el.innerHTML = "BUY 🚀 (Strong Signal)";
-    
-    // munculin popup
-    document.getElementById("popup").style.display = "block";
-    
-  }, 2000);
-}
- function claimBonus() {
-  window.location.href = "https://ajaib.co.id/register?referral=okiftptw";
-}
-function claimBonus() {
-  window.open("https://ajaib.co.id/register?referral=okiftptw", "_blank");
-}
-function loginVIP() {
-  let code = document.getElementById("vipCode").value;
 
-  if (code === "123VIP") {
-    isVIP = true;
-    showVIP();
+    let r = Math.random();
+    let signal = r > 0.6 ? "BUY 🚀" : (r < 0.4 ? "SELL 🔻" : "WAIT ⏳");
+
+    el.innerHTML = signal + "<br>Sisa " + signalLimit + "x";
+
+    document.getElementById("popup").style.display = "block";
+
+  }, 2500);
+}
+
+// VIP login
+function loginVIP(){
+  let code = document.getElementById("vipCode").value;
+  if(code === "VIP123"){
+    alert("VIP aktif!");
+    signalLimit = 999;
   } else {
     alert("Kode salah!");
   }
 }
 
-function showVIP() {
-  let entry = (Math.random()*1000).toFixed(2);
-  let sl = (entry - 50).toFixed(2);
-  let tp = (parseFloat(entry) + 100).toFixed(2);
-
-  document.getElementById("vipSignal").innerHTML = `
-  ✅ VIP SIGNAL<br>
-  Entry: ${entry}<br>
-  SL: ${sl}<br>
-  TP: ${tp}
-  `;
+// WA VIP
+function joinVIP(){
+  window.open("https://wa.me/6285624264725");
 }
 
-function joinVIP() {
-  window.open("https://wa.me/6285624264725", "_blank");
+// Ajaib referral
+function goAjaib(){
+  window.location.href = "https://ajaib.co.id/register?referral=okiftptw";
 }
+
 </script>
 
-<div id="popup" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#0f172a; padding:20px; text-align:center;">
-  <p>🎁 Dapatkan bonus trading untuk pemula!</p>
-  <button onclick="claimBonus()">Claim Bonus</button>
-</div> document.getElementById("popup").style.display = "block";
-setTimeout(() => {
-  // signal keluar
-  document.getElementById("popup").style.display = "block";
-}, 3000);
- 
 </body>
 </html>
- 
-<div class="card">
-  <h3>🔥 Mulai Trading & Dapat Bonus</h3>
-  <p>Daftar Ajaib pakai kode referral untuk dapat keuntungan tambahan</p>
-  
-  <a href="https://ajaib.co.id/register?referral=okiftptw" target="_blank">
-    <button class="btn-profit">Daftar Ajaib Sekarang</button>
-  </a>
-</div>
