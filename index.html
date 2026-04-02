@@ -1,59 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>🚀 Pro Trading Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            background: #020617;
-            color: white;
-        }
+  <title>🚀 Pro Trading Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        header {
-            padding: 15px;
-            text-align: center;
-            color: #38bdf8;
-            font-size: 22px;
-            border-bottom: 1px solid #1e293b;
-        }
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #020617;
+      color: white;
+    }
 
-        .container {
-            padding: 15px;
-        }
+    header {
+      padding: 15px;
+      text-align: center;
+      color: #38bdf8;
+      font-size: 22px;
+      border-bottom: 1px solid #1e293b;
+    }
 
-        .card {
-            background: #1e293b;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
+    .container {
+      padding: 15px;
+    }
 
-        select, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 8px;
-            border: none;
-            font-size: 16px;
-        }
+    .card {
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
 
-        button {
-            background: #38bdf8;
-            color: black;
-            font-weight: bold;
-        }
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
 
-        .signal {
-            font-size: 20px;
-            text-align: center;
-            margin-top: 10px;
-        }
+    button {
+      background: #38bdf8;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        .buy { color: #22c55e; }
-        .sell { color: #ef4444; }
-    </style>
+    button:hover {
+      background: #0ea5e9;
+    }
+
+    .result {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 16px;
+      color: #cbd5f5;
+    }
+  </style>
 </head>
 
 <body>
@@ -62,63 +66,70 @@
 
 <div class="container">
 
-    <div class="card">
-        <h3>Pilih Pair</h3>
-        <select id="pair">
-            <option>BTC/USDT</option>
-            <option>ETH/USDT</option>
-            <option>SOL/USDT</option>
-        </select>
-    </div>
+  <!-- Pair -->
+  <div class="card">
+    <h3>Pilih Pair</h3>
+    <select id="pair">
+      <option>BTC/USDT</option>
+      <option>ETH/USDT</option>
+      <option>SOL/USDT</option>
+      <option>XRP/USDT</option>
+    </select>
+  </div>
 
-    <div class="card">
-        <h3>Chart</h3>
-        <iframe 
-            src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=15&theme=dark"
-            width="100%" height="300" frameborder="0">
-        </iframe>
-    </div>
+  <!-- Chart -->
+  <div class="card">
+    <h3>Chart</h3>
+    <div id="tradingview_chart"></div>
+  </div>
 
-    <div class="card">
-        <h3>Signal Trading</h3>
-        <button onclick="generateSignal()">Generate Signal</button>
-        <div id="signal" class="signal">Menunggu analisa...</div>
-    </div>
+  <!-- Signal -->
+  <div class="card">
+    <h3>Signal Trading</h3>
+    <button onclick="generateSignal()">Generate Signal</button>
+    <div class="result" id="signal">Menunggu analisa...</div>
+  </div>
 
-    <div class="card">
-        <h3>Tips</h3>
-        <button onclick="showTips()">Tips Trading</button>
-        <div id="tips" class="signal"></div>
-    </div>
+  <!-- Tips -->
+  <div class="card">
+    <h3>Tips Trading</h3>
+    <button onclick="showTips()">Tampilkan Tips</button>
+    <div class="result" id="tips"></div>
+  </div>
 
 </div>
 
+<!-- TradingView Script -->
+<script src="https://s3.tradingview.com/tv.js"></script>
 <script>
-function generateSignal() {
+  new TradingView.widget({
+    "width": "100%",
+    "height": 300,
+    "symbol": "BINANCE:BTCUSDT",
+    "interval": "15",
+    "theme": "dark",
+    "style": "1",
+    "locale": "en",
+    "container_id": "tradingview_chart"
+  });
+
+  function generateSignal() {
     let signals = ["BUY 🚀", "SELL 🔻", "WAIT ⏳"];
-    let result = signals[Math.floor(Math.random() * signals.length)];
+    let random = signals[Math.floor(Math.random() * signals.length)];
+    document.getElementById("signal").innerText = "Signal: " + random;
+  }
 
-    let el = document.getElementById("signal");
-    el.innerHTML = result;
-
-    el.classList.remove("buy", "sell");
-
-    if(result.includes("BUY")) el.classList.add("buy");
-    if(result.includes("SELL")) el.classList.add("sell");
-}
-
-function showTips() {
+  function showTips() {
     let tipsList = [
-        "Gunakan risk management",
-        "Jangan overtrade",
-        "Ikuti trend market",
-        "Gunakan stop loss",
-        "Jangan FOMO"
+      "Gunakan risk management",
+      "Jangan overtrade",
+      "Ikuti trend market",
+      "Gunakan stop loss",
+      "Jangan FOMO"
     ];
-
     let random = tipsList[Math.floor(Math.random() * tipsList.length)];
-    document.getElementById("tips").innerHTML = random;
-}
+    document.getElementById("tips").innerText = random;
+  }
 </script>
 
 </body>
