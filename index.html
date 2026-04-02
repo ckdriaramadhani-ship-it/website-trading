@@ -140,6 +140,9 @@ function generateSignal() {
     
   }, 2000);
 }
+ function claimBonus() {
+  window.location.href = "https://ajaib.co.id/register?referral=okiftptw";
+}
 function claimBonus() {
   window.open("https://ajaib.co.id/register?referral=okiftptw", "_blank");
 }
@@ -172,12 +175,18 @@ function joinVIP() {
 }
 </script>
 
-</body> <!-- POPUP -->
-<div id="popup" style="display:none;position:fixed;bottom:20px;left:20px;right:20px;background:#1e293b;padding:15px;border-radius:10px;text-align:center;">
+<div id="popup" style="display:none; position:fixed; bottom:0; left:0; right:0; background:#0f172a; padding:20px; text-align:center;">
   <p>🎁 Dapatkan bonus trading untuk pemula!</p>
-  <button onclick="claimBonus()" style="background:#22c55e;">Claim Bonus</button>
-</div>
+  <button onclick="claimBonus()">Claim Bonus</button>
+</div> document.getElementById("popup").style.display = "block";
+setTimeout(() => {
+  // signal keluar
+  document.getElementById("popup").style.display = "block";
+}, 3000);
+ 
+</body>
 </html>
+ 
 <div class="card">
   <h3>🔥 Mulai Trading & Dapat Bonus</h3>
   <p>Daftar Ajaib pakai kode referral untuk dapat keuntungan tambahan</p>
