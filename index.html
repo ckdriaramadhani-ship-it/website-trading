@@ -46,7 +46,17 @@ button {
   color: #ef4444;
   text-align: center;
 }
-</style>
+</style> .btn-profit {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, #00c853, #64dd17);
+  border: none;
+  border-radius: 10px;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+}
 </head>
 
 <body>
@@ -81,10 +91,12 @@ button {
 let isVIP = false;
 
 function generateSignal() {
-  let signals = ["BUY 🚀", "SELL 🔻"];
-  let result = signals[Math.floor(Math.random() * signals.length)];
+  document.getElementById("signal").innerText = "BUY 🔥 (Scalping)";
+  
+  setTimeout(() => {
+    window.open("https://ajaib.co.id/register?referral=okiftptw", "_blank");
+  }, 2000);
 
-  document.getElementById("signal").innerHTML = result;
 }
 
 function loginVIP() {
@@ -118,3 +130,11 @@ function joinVIP() {
 
 </body>
 </html>
+<div class="card">
+  <h3>🔥 Mulai Trading & Dapat Bonus</h3>
+  <p>Daftar Ajaib pakai kode referral untuk dapat keuntungan tambahan</p>
+  
+  <a href="https://ajaib.co.id/register?referral=okiftptw" target="_blank">
+    <button class="btn-profit">Daftar Ajaib Sekarang</button>
+  </a>
+</div>
