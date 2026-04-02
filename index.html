@@ -130,7 +130,273 @@
     let random = tipsList[Math.floor(Math.random() * tipsList.length)];
     document.getElementById("tips").innerText = random;
   }
-</script>
+</script><script>
+async function getPrice(pair) {
+    try {
+        let id = "bitcoin";
 
+        if (pair === "ETH/USDT") id = "ethereum";
+        if (pair === "BNB/USDT") id = "binancecoin";
+
+        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
+        const data = await res.json();
+
+        return data[id].usd;
+    } catch (err) {
+        console.log("Error:", err);
+        return null;
+    }
+}
+
+async function generateSignal() {
+    const pair = document.getElementById("pair").value;
+    const price = await getPrice(pair);
+
+    const output = document.getElementById("signal");
+
+    if (!price) {
+        output.innerHTML = "Gagal ambil data 😢";
+        return;
+    }
+
+    // Logic sederhana (random + harga)
+    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
+
+    let sl = (price * 0.98).toFixed(2);
+    let tp = (price * 1.02).toFixed(2);
+
+    output.innerHTML = `
+        <b>Pair:</b> ${pair}<br>
+        <b>Harga:</b> $${price}<br>
+        <b>Signal:</b> ${signalType}<br>
+        <b>TP:</b> $${tp}<br>
+        <b>SL:</b> $${sl}
+    `;
+}
+</script><script>
+async function getPrice(pair) {
+    try {
+        let id = "bitcoin";
+
+        if (pair === "ETH/USDT") id = "ethereum";
+        if (pair === "BNB/USDT") id = "binancecoin";
+
+        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
+        const data = await res.json();
+
+        return data[id].usd;
+    } catch (err) {
+        console.log("Error:", err);
+        return null;
+    }
+}
+
+async function generateSignal() {
+    const pair = document.getElementById("pair").value;
+    const price = await getPrice(pair);
+
+    const output = document.getElementById("signal");
+
+    if (!price) {
+        output.innerHTML = "Gagal ambil data 😢";
+        return;
+    }
+
+    // Logic sederhana (random + harga)
+    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
+
+    let sl = (price * 0.98).toFixed(2);
+    let tp = (price * 1.02).toFixed(2);
+
+    output.innerHTML = `
+        <b>Pair:</b> ${pair}<br>
+        <b>Harga:</b> $${price}<br>
+        <b>Signal:</b> ${signalType}<br>
+        <b>TP:</b> $${tp}<br>
+        <b>SL:</b> $${sl}
+    `;
+}
+</script> <script>
+async function getPrice(pair) {
+    try {
+        let id = "bitcoin";
+
+        if (pair === "ETH/USDT") id = "ethereum";
+        if (pair === "BNB/USDT") id = "binancecoin";
+
+        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
+        const data = await res.json();
+
+        return data[id].usd;
+    } catch (err) {
+        console.log("Error:", err);
+        return null;
+    }
+}
+
+async function generateSignal() {
+    const pair = document.getElementById("pair").value;
+    const price = await getPrice(pair);
+
+    const output = document.getElementById("signal");
+
+    if (!price) {
+        output.innerHTML = "Gagal ambil data 😢";
+        return;
+    }
+
+    // Logic sederhana (random + harga)
+    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
+
+    let sl = (price * 0.98).toFixed(2);
+    let tp = (price * 1.02).toFixed(2);
+
+    output.innerHTML = `
+        <b>Pair:</b> ${pair}<br>
+        <b>Harga:</b> $${price}<br>
+        <b>Signal:</b> ${signalType}<br>
+        <b>TP:</b> $${tp}<br>
+        <b>SL:</b> $${sl}
+    `;
+}
+</script> <script>
+async function getPrice(pair) {
+    try {
+        let id = "bitcoin";
+
+        if (pair === "ETH/USDT") id = "ethereum";
+        if (pair === "BNB/USDT") id = "binancecoin";
+
+        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
+        const data = await res.json();
+
+        return data[id].usd;
+    } catch (err) {
+        console.log("Error:", err);
+        return null;
+    }
+}
+
+async function generateSignal() {
+    const pair = document.getElementById("pair").value;
+    const price = await getPrice(pair);
+
+    const output = document.getElementById("signal");
+
+    if (!price) {
+        output.innerHTML = "Gagal ambil data 😢";
+        return;
+    }
+
+    // Logic sederhana (random + harga)
+    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
+
+    let sl = (price * 0.98).toFixed(2);
+    let tp = (price * 1.02).toFixed(2);
+
+    output.innerHTML = `
+        <b>Pair:</b> ${pair}<br>
+        <b>Harga:</b> $${price}<br>
+        <b>Signal:</b> ${signalType}<br>
+        <b>TP:</b> $${tp}<br>
+        <b>SL:</b> $${sl}
+    `;
+}
+</script>
+  <script>
+async function getPrice(pair) {
+    try {
+        let id = "bitcoin";
+
+        if (pair === "ETH/USDT") id = "ethereum";
+        if (pair === "BNB/USDT") id = "binancecoin";
+
+        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
+        const data = await res.json();
+
+        return data[id].usd;
+    } catch (err) {
+        console.log("Error:", err);
+        return null;
+    }
+}
+
+async function generateSignal() {
+    const pair = document.getElementById("pair").value;
+    const price = await getPrice(pair);
+
+    const output = document.getElementById("signal");
+
+    if (!price) {
+        output.innerHTML = "Gagal ambil data 😢";
+        return;
+    }
+
+    // Logic sederhana (random + harga)
+    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
+
+    let sl = (price * 0.98).toFixed(2);
+    let tp = (price * 1.02).toFixed(2);
+
+    output.innerHTML = `
+        <b>Pair:</b> ${pair}<br>
+        <b>Harga:</b> $${price}<br>
+        <b>Signal:</b> ${signalType}<br>
+        <b>TP:</b> $${tp}<br>
+        <b>SL:</b> $${sl}
+    `;
+}
+</script>
+<script>
+async function getPrice(pair) {
+    try {
+        let id = "bitcoin";
+
+        if (pair === "ETH/USDT") id = "ethereum";
+        if (pair === "BNB/USDT") id = "binancecoin";
+
+        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
+        const data = await res.json();
+
+        return data[id].usd;
+    } catch (err) {
+        console.log("Error:", err);
+        return null;
+    }
+}
+
+async function generateSignal() {
+    const pair = document.getElementById("pair").value;
+    const price = await getPrice(pair);
+
+    const output = document.getElementById("signal");
+
+    if (!price) {
+        output.innerHTML = "Gagal ambil data 😢";
+        return;
+    }
+
+    // Logic sederhana (random + harga)
+    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
+
+    let sl = (price * 0.98).toFixed(2);
+    let tp = (price * 1.02).toFixed(2);
+
+    output.innerHTML = `
+        <b>Pair:</b> ${pair}<br>
+        <b>Harga:</b> $${price}<br>
+        <b>Signal:</b> ${signalType}<br>
+        <b>TP:</b> $${tp}<br>
+        <b>SL:</b> $${sl}
+    `;
+}
+</script>
 </body>
 </html>
+<button onclick="generateSignal()">Generate Signal</button>
+<select id="pair">
+  <option>BTC/USDT</option>
+  <option>ETH/USDT</option>
+  <option>BNB/USDT</option>
+</select>
+<div id="signal">Menunggu analisa...</div>
