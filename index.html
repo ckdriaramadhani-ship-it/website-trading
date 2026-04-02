@@ -4,7 +4,15 @@
 <title>🚀 Trading Signal Pro</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+<style> #popup {
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
 body {
   margin: 0;
   font-family: Arial;
@@ -59,7 +67,11 @@ button {
 }
 </head>
 
-<body>
+<body> <!-- POPUP -->
+<div id="popup" style="display:none;position:fixed;bottom:20px;left:20px;right:20px;background:#1e293b;padding:15px;border-radius:10px;text-align:center;">
+  <p>🎁 Dapatkan bonus trading untuk pemula!</p>
+  <button onclick="claimBonus()" style="background:#22c55e;">Claim Bonus</button>
+</div>
 
 <header>🚀 Trading Signal Pro</header>
 
@@ -91,14 +103,22 @@ button {
 let isVIP = false;
 
 function generateSignal() {
-  document.getElementById("signal").innerText = "BUY 🔥 (Scalping)";
+  let el = document.getElementById("signal");
+
+  // loading AI
+  el.innerHTML = "🤖 AI analyzing market...";
   
   setTimeout(() => {
-    window.open("https://ajaib.co.id/register?referral=okiftptw", "_blank");
+    el.innerHTML = "BUY 🚀 (Strong Signal)";
+    
+    // munculin popup
+    document.getElementById("popup").style.display = "block";
+    
   }, 2000);
-
 }
-
+function claimBonus() {
+  window.open("https://ajaib.co.id/register?referral=okiftptw", "_blank");
+}
 function loginVIP() {
   let code = document.getElementById("vipCode").value;
 
@@ -128,7 +148,11 @@ function joinVIP() {
 }
 </script>
 
-</body>
+</body> <!-- POPUP -->
+<div id="popup" style="display:none;position:fixed;bottom:20px;left:20px;right:20px;background:#1e293b;padding:15px;border-radius:10px;text-align:center;">
+  <p>🎁 Dapatkan bonus trading untuk pemula!</p>
+  <button onclick="claimBonus()" style="background:#22c55e;">Claim Bonus</button>
+</div>
 </html>
 <div class="card">
   <h3>🔥 Mulai Trading & Dapat Bonus</h3>
