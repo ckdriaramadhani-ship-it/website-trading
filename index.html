@@ -31,372 +31,83 @@
       margin-bottom: 15px;
     }
 
-    select, button {
+    button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 10px;
       border-radius: 8px;
       border: none;
       font-size: 16px;
-    }
-
-    button {
       background: #38bdf8;
-      color: black;
       font-weight: bold;
       cursor: pointer;
     }
 
-    button:hover {
-      background: #0ea5e9;
+    .vip {
+      background: #22c55e;
+      color: black;
     }
 
-    .result {
-      margin-top: 10px;
+    .signal {
       text-align: center;
-      font-size: 16px;
-      color: #cbd5f5;
+      margin-top: 10px;
     }
   </style>
 </head>
 
 <body>
 
-<header>🚀 Pro Trading Dashboard</header>
+<header>🚀 Trading Signal Pro</header>
 
 <div class="container">
 
-  <!-- Pair -->
+  <!-- SIGNAL -->
   <div class="card">
-    <h3>Pilih Pair</h3>
-    <select id="pair">
-      <option>BTC/USDT</option>
-      <option>ETH/USDT</option>
-      <option>SOL/USDT</option>
-      <option>XRP/USDT</option>
-    </select>
-  </div>
-
-  <!-- Chart -->
-  <div class="card">
-    <h3>Chart</h3>
-    <div id="tradingview_chart"></div>
-  </div>
-
-  <!-- Signal -->
-  <div class="card">
-    <h3>Signal Trading</h3>
+    <h3>Signal Hari Ini</h3>
     <button onclick="generateSignal()">Generate Signal</button>
-    <div class="result" id="signal">Menunggu analisa...</div>
+    <div id="signal" class="signal">Klik untuk analisa</div>
   </div>
 
-  <!-- Tips -->
+  <!-- TESTIMONI -->
   <div class="card">
-    <h3>Tips Trading</h3>
-    <button onclick="showTips()">Tampilkan Tips</button>
-    <div class="result" id="tips"></div>
+    <h3>Testimoni</h3>
+    <p>🔥 “Profit 120$ dalam 2 hari!”</p>
+    <p>🔥 “Signal akurat banget!”</p>
+    <p>🔥 “Worth it join VIP!”</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="card">
+    <h3>Join VIP Signal</h3>
+    <p>Dapatkan signal lebih akurat + entry lengkap</p>
+    <button class="vip" onclick="joinVIP()">Join VIP Sekarang</button>
+  </div>
+
+  <!-- AFFILIATE -->
+  <div class="card">
+    <h3>Mulai Trading</h3>
+    <p>Daftar exchange & mulai trading sekarang</p>
+    <button onclick="openExchange()">Daftar Sekarang</button>
   </div>
 
 </div>
 
-<!-- TradingView Script -->
-<script src="https://s3.tradingview.com/tv.js"></script>
 <script>
-  new TradingView.widget({
-    "width": "100%",
-    "height": 300,
-    "symbol": "BINANCE:BTCUSDT",
-    "interval": "15",
-    "theme": "dark",
-    "style": "1",
-    "locale": "en",
-    "container_id": "tradingview_chart"
-  });
+function generateSignal() {
+  let signals = ["BUY 🚀", "SELL 🔻"];
+  let result = signals[Math.floor(Math.random() * signals.length)];
 
-  function generateSignal() {
-    let signals = ["BUY 🚀", "SELL 🔻", "WAIT ⏳"];
-    let random = signals[Math.floor(Math.random() * signals.length)];
-    document.getElementById("signal").innerText = "Signal: " + random;
-  }
-
-  function showTips() {
-    let tipsList = [
-      "Gunakan risk management",
-      "Jangan overtrade",
-      "Ikuti trend market",
-      "Gunakan stop loss",
-      "Jangan FOMO"
-    ];
-    let random = tipsList[Math.floor(Math.random() * tipsList.length)];
-    document.getElementById("tips").innerText = random;
-  }
-</script><script>
-async function getPrice(pair) {
-    try {
-        let id = "bitcoin";
-
-        if (pair === "ETH/USDT") id = "ethereum";
-        if (pair === "BNB/USDT") id = "binancecoin";
-
-        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
-        const data = await res.json();
-
-        return data[id].usd;
-    } catch (err) {
-        console.log("Error:", err);
-        return null;
-    }
+  document.getElementById("signal").innerHTML = result;
 }
 
-async function generateSignal() {
-    const pair = document.getElementById("pair").value;
-    const price = await getPrice(pair);
-
-    const output = document.getElementById("signal");
-
-    if (!price) {
-        output.innerHTML = "Gagal ambil data 😢";
-        return;
-    }
-
-    // Logic sederhana (random + harga)
-    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
-
-    let sl = (price * 0.98).toFixed(2);
-    let tp = (price * 1.02).toFixed(2);
-
-    output.innerHTML = `
-        <b>Pair:</b> ${pair}<br>
-        <b>Harga:</b> $${price}<br>
-        <b>Signal:</b> ${signalType}<br>
-        <b>TP:</b> $${tp}<br>
-        <b>SL:</b> $${sl}
-    `;
-}
-</script><script>
-async function getPrice(pair) {
-    try {
-        let id = "bitcoin";
-
-        if (pair === "ETH/USDT") id = "ethereum";
-        if (pair === "BNB/USDT") id = "binancecoin";
-
-        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
-        const data = await res.json();
-
-        return data[id].usd;
-    } catch (err) {
-        console.log("Error:", err);
-        return null;
-    }
+function joinVIP() {
+  alert("Hubungi WhatsApp: 08xxxxxxxxxx");
 }
 
-async function generateSignal() {
-    const pair = document.getElementById("pair").value;
-    const price = await getPrice(pair);
-
-    const output = document.getElementById("signal");
-
-    if (!price) {
-        output.innerHTML = "Gagal ambil data 😢";
-        return;
-    }
-
-    // Logic sederhana (random + harga)
-    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
-
-    let sl = (price * 0.98).toFixed(2);
-    let tp = (price * 1.02).toFixed(2);
-
-    output.innerHTML = `
-        <b>Pair:</b> ${pair}<br>
-        <b>Harga:</b> $${price}<br>
-        <b>Signal:</b> ${signalType}<br>
-        <b>TP:</b> $${tp}<br>
-        <b>SL:</b> $${sl}
-    `;
-}
-</script> <script>
-async function getPrice(pair) {
-    try {
-        let id = "bitcoin";
-
-        if (pair === "ETH/USDT") id = "ethereum";
-        if (pair === "BNB/USDT") id = "binancecoin";
-
-        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
-        const data = await res.json();
-
-        return data[id].usd;
-    } catch (err) {
-        console.log("Error:", err);
-        return null;
-    }
-}
-
-async function generateSignal() {
-    const pair = document.getElementById("pair").value;
-    const price = await getPrice(pair);
-
-    const output = document.getElementById("signal");
-
-    if (!price) {
-        output.innerHTML = "Gagal ambil data 😢";
-        return;
-    }
-
-    // Logic sederhana (random + harga)
-    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
-
-    let sl = (price * 0.98).toFixed(2);
-    let tp = (price * 1.02).toFixed(2);
-
-    output.innerHTML = `
-        <b>Pair:</b> ${pair}<br>
-        <b>Harga:</b> $${price}<br>
-        <b>Signal:</b> ${signalType}<br>
-        <b>TP:</b> $${tp}<br>
-        <b>SL:</b> $${sl}
-    `;
-}
-</script> <script>
-async function getPrice(pair) {
-    try {
-        let id = "bitcoin";
-
-        if (pair === "ETH/USDT") id = "ethereum";
-        if (pair === "BNB/USDT") id = "binancecoin";
-
-        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
-        const data = await res.json();
-
-        return data[id].usd;
-    } catch (err) {
-        console.log("Error:", err);
-        return null;
-    }
-}
-
-async function generateSignal() {
-    const pair = document.getElementById("pair").value;
-    const price = await getPrice(pair);
-
-    const output = document.getElementById("signal");
-
-    if (!price) {
-        output.innerHTML = "Gagal ambil data 😢";
-        return;
-    }
-
-    // Logic sederhana (random + harga)
-    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
-
-    let sl = (price * 0.98).toFixed(2);
-    let tp = (price * 1.02).toFixed(2);
-
-    output.innerHTML = `
-        <b>Pair:</b> ${pair}<br>
-        <b>Harga:</b> $${price}<br>
-        <b>Signal:</b> ${signalType}<br>
-        <b>TP:</b> $${tp}<br>
-        <b>SL:</b> $${sl}
-    `;
+function openExchange() {
+  window.open("https://www.binance.com/", "_blank");
 }
 </script>
-  <script>
-async function getPrice(pair) {
-    try {
-        let id = "bitcoin";
 
-        if (pair === "ETH/USDT") id = "ethereum";
-        if (pair === "BNB/USDT") id = "binancecoin";
-
-        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
-        const data = await res.json();
-
-        return data[id].usd;
-    } catch (err) {
-        console.log("Error:", err);
-        return null;
-    }
-}
-
-async function generateSignal() {
-    const pair = document.getElementById("pair").value;
-    const price = await getPrice(pair);
-
-    const output = document.getElementById("signal");
-
-    if (!price) {
-        output.innerHTML = "Gagal ambil data 😢";
-        return;
-    }
-
-    // Logic sederhana (random + harga)
-    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
-
-    let sl = (price * 0.98).toFixed(2);
-    let tp = (price * 1.02).toFixed(2);
-
-    output.innerHTML = `
-        <b>Pair:</b> ${pair}<br>
-        <b>Harga:</b> $${price}<br>
-        <b>Signal:</b> ${signalType}<br>
-        <b>TP:</b> $${tp}<br>
-        <b>SL:</b> $${sl}
-    `;
-}
-</script>
-<script>
-async function getPrice(pair) {
-    try {
-        let id = "bitcoin";
-
-        if (pair === "ETH/USDT") id = "ethereum";
-        if (pair === "BNB/USDT") id = "binancecoin";
-
-        const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`);
-        const data = await res.json();
-
-        return data[id].usd;
-    } catch (err) {
-        console.log("Error:", err);
-        return null;
-    }
-}
-
-async function generateSignal() {
-    const pair = document.getElementById("pair").value;
-    const price = await getPrice(pair);
-
-    const output = document.getElementById("signal");
-
-    if (!price) {
-        output.innerHTML = "Gagal ambil data 😢";
-        return;
-    }
-
-    // Logic sederhana (random + harga)
-    let signalType = Math.random() > 0.5 ? "BUY 📈" : "SELL 📉";
-
-    let sl = (price * 0.98).toFixed(2);
-    let tp = (price * 1.02).toFixed(2);
-
-    output.innerHTML = `
-        <b>Pair:</b> ${pair}<br>
-        <b>Harga:</b> $${price}<br>
-        <b>Signal:</b> ${signalType}<br>
-        <b>TP:</b> $${tp}<br>
-        <b>SL:</b> $${sl}
-    `;
-}
-</script>
 </body>
 </html>
-<button onclick="generateSignal()">Generate Signal</button>
-<select id="pair">
-  <option>BTC/USDT</option>
-  <option>ETH/USDT</option>
-  <option>BNB/USDT</option>
-</select>
-<div id="signal">Menunggu analisa...</div>
