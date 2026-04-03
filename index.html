@@ -1,232 +1,167 @@
-ku<!DOCTYPE html>
-<html>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6980651711047559"
-     crossorigin="anonymous"></script>
-<head> 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6980651711047559"
-     crossorigin="anonymous"></script>
-  <title>🚀 Trading Signal Pro</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
 
-  <style>
-    * { box-sizing: border-box; }
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signal Trading Pro</title>
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #020617;
-      color: white;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0b1220;
+  color: white;
+}
 
-    .header {
-      text-align: center;
-      padding: 15px;
-      border-bottom: 1px solid #1e293b;
-    }
+.container {
+  padding: 15px;
+}
 
-    .header h2 {
-      margin: 0;
-      color: #38bdf8;
-    }
+.card {
+  background: #1c2438;
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
 
-    .container {
-      padding: 15px;
-    }
+h1 {
+  text-align: center;
+}
 
-    .card {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 12px;
-      margin-bottom: 15px;
-      animation: fadeIn 0.4s ease;
-    }
+.chart {
+  height: 200px;
+  background: linear-gradient(180deg,#111,#000);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
 
-    @keyframes fadeIn {
-      from {opacity:0; transform: translateY(10px);}
-      to {opacity:1; transform: translateY(0);}
-    }
+.bar {
+  width: 4px;
+  background: lime;
+  position: absolute;
+  bottom: 0;
+}
 
-    .btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      margin-top: 10px;
-      font-size: 15px;
-    }
+.red { background: red; }
 
-    .btn-signal {
-      background: linear-gradient(45deg, #38bdf8, #0ea5e9);
-      color: black;
-    }
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+}
 
-    .btn-profit {
-      background: linear-gradient(45deg, #22c55e, #4ade80);
-      color: black;
-    }
+.btn-green { background: #34d399; }
+.btn-blue { background: #38bdf8; }
 
-    .profit {
-      color: #22c55e;
-      font-size: 20px;
-      font-weight: bold;
-    }
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 10px;
+}
+</style>
 
-    input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      margin-top: 10px;
-    }
-
-    iframe {
-      max-width: 100%;
-      border-radius: 10px;
-    }
-
-    /* POPUP */
-    #popup {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #0f172a;
-      padding: 20px;
-      text-align: center;
-      border-top: 2px solid #38bdf8;
-      animation: slideUp 0.5s ease;
-    }
-
-    @keyframes slideUp {
-      from {transform: translateY(100%);}
-      to {transform: translateY(0);}
-    }
-
-  </style>
 </head>
 
 <body>
 
-<div class="header">
-  <h2>🚀 Trading Signal Pro</h2>
-  <p style="font-size:12px;color:gray;">Simple AI Trading Tools</p>
-</div>
-
 <div class="container">
 
-  <!-- PROFIT -->
-  <div class="card">
-    <h3>💰 Profit Hari Ini</h3>
-    <p id="profit" class="profit">+$0</p>
-  </div>
+<h1>📈 Signal Trading Pro</h1>
 
-  <!-- SIGNAL -->
-  <div class="card">
-    <h3>Signal Gratis</h3>
-    <button class="btn btn-signal" onclick="generateSignal()">Generate Signal</button>
-    <p id="result">Sisa 3x signal hari ini</p>
-  </div>
+<div class="card">
+  <div class="chart" id="chart"></div>
+</div>
 
-  <!-- CHART -->
-  <div class="card">
-    <h3>📊 Live Chart</h3>
-    <iframe 
-      src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=15&theme=dark"
-      width="100%" height="300">
-    </iframe>
-  </div>
+<div class="card">
+  <h2>🔒 VIP Signal</h2>
+  <p>Signal lebih akurat + entry lengkap</p>
+  <button class="btn-green" onclick="joinVIP()">Join VIP</button>
+</div>
 
-  <!-- VIP -->
-  <div class="card">
-    <h3>VIP Signal 🔒</h3>
-    <p>Signal lebih akurat + entry lengkap</p>
-    <button class="btn btn-profit" onclick="joinVIP()">Join VIP</button>
-  </div>
+<div class="card">
+  <h2>Login VIP</h2>
+  <input type="text" id="vipCode" placeholder="Masukkan kode VIP">
+  <button class="btn-blue" onclick="loginVIP()">Login</button>
+</div>
 
-  <!-- LOGIN -->
-  <div class="card">
-    <h3>Login VIP</h3>
-    <input id="vipCode" placeholder="Masukkan kode VIP">
-    <button class="btn btn-signal" onclick="loginVIP()">Login</button>
-  </div>
+<div class="card">
+  <h2>🔥 Mulai Trading</h2>
+  <p>Gunakan platform terpercaya</p>
+  <button class="btn-green" onclick="goAjaib()">Daftar Ajaib</button>
+</div>
 
-  
-!-- BONUS -->
-  <div class="card">
-    <h3>🔥 Mulai Trading</h3>
-    <p>Gunakan platform terpercaya untuk pemula</p>
-    <button class="btn btn-profit" onclick="goAjaib()">Daftar Ajaib</button>
-  </div> 
-  
-  
+<div class="card" id="signalBox" style="display:none;">
+  <h2>📊 SIGNAL VIP</h2>
+  <p id="signalText">Loading...</p>
+</div>
 
+</div>
 
 <script>
+// ================= CHART DUMMY =================
+const chart = document.getElementById("chart");
 
-let signalLimit = 3;
-let profit = 0;
+function generateChart() {
+  chart.innerHTML = "";
+  for (let i = 0; i < 50; i++) {
+    let bar = document.createElement("div");
+    let height = Math.random() * 100;
+    bar.className = "bar";
+    if (Math.random() > 0.5) bar.classList.add("red");
 
-// Profit naik (visual)
-setInterval(() => {
-  profit += Math.floor(Math.random()*7);
-  document.getElementById("profit").innerText = "+$" + profit;
-}, 2000);
+    bar.style.height = height + "%";
+    bar.style.left = (i * 6) + "px";
 
-// Popup auto
-setTimeout(() => {
-  document.getElementById("popup").style.display = "block";
-}, 6000);
-
-// Generate signal
-function generateSignal() {
-
-  if(signalLimit <= 0){
-    document.getElementById("result").innerHTML = "❌ Limit habis (VIP only)";
-    return;
+    chart.appendChild(bar);
   }
+}
+generateChart();
 
-  signalLimit--;
-
-  let el = document.getElementById("result");
-  el.innerHTML = "🤖 AI analyzing...";
-
-  setTimeout(() => {
-
-    let r = Math.random();
-    let signal = r > 0.6 ? "BUY 🚀" : (r < 0.4 ? "SELL 🔻" : "WAIT ⏳");
-
-    el.innerHTML = signal + "<br>Sisa " + signalLimit + "x";
-
-    document.getElementById("popup").style.display = "block";
-
-  }, 2500);
+// ================= VIP =================
+function joinVIP(){
+  alert("Hubungi admin untuk join VIP 🚀");
 }
 
-// VIP login
 function loginVIP(){
   let code = document.getElementById("vipCode").value;
+
   if(code === "VIP123"){
-    alert("VIP aktif!");
-    signalLimit = 999;
+    alert("Login berhasil 🔥");
+    document.getElementById("signalBox").style.display = "block";
+    startSignal();
   } else {
-    alert("Kode salah!");
+    alert("Kode salah ❌");
   }
-
-
-// WA VIP
-function joinVIP(){
-  window.open("https://wa.me/6285624264725");
 }
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6980651711047559"
-     crossorigin="anonymous"></script>
 
-// Ajaib referral
+// ================= SIGNAL FAKE =================
+function startSignal(){
+  setInterval(() => {
+    let arah = Math.random() > 0.5 ? "BUY" : "SELL";
+    let pair = ["BTC/USDT","ETH/USDT","XAUUSD"];
+    let randomPair = pair[Math.floor(Math.random()*pair.length)];
+
+    let text = arah + " " + randomPair +
+      " | Entry: " + (Math.random()*1000).toFixed(2) +
+      " | TP: +" + (Math.random()*50).toFixed(2) +
+      " | SL: -" + (Math.random()*30).toFixed(2);
+
+    document.getElementById("signalText").innerText = text;
+  }, 3000);
+}
+
+// ================= REFERRAL =================
 function goAjaib(){
- window.location.href ="https://ajaib.co.id/register?referral=okiftptw";
+  window.location.href = "https://ajaib.co.id/register?referral=okiftptw";
 }
-
 </script>
 
 </body>
