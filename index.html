@@ -18,6 +18,10 @@ body {
   padding: 15px;
 }
 
+h1 {
+  text-align: center;
+}
+
 .card {
   background: #1c2438;
   border-radius: 15px;
@@ -25,26 +29,21 @@ body {
   margin-bottom: 15px;
 }
 
-h1 {
-  text-align: center;
-}
-
 .chart {
   height: 200px;
-  background: linear-gradient(180deg,#111,#000);
+  background: black;
   border-radius: 10px;
-  margin-bottom: 10px;
-  position: relative;
   overflow: hidden;
+  position: relative;
 }
 
 .bar {
   width: 4px;
-  background: lime;
   position: absolute;
   bottom: 0;
 }
 
+.green { background: lime; }
 .red { background: red; }
 
 button {
@@ -54,6 +53,12 @@ button {
   border-radius: 10px;
   font-size: 16px;
   margin-top: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:active {
+  transform: scale(0.95);
 }
 
 .btn-green { background: #34d399; }
@@ -66,6 +71,11 @@ input {
   border: none;
   margin-top: 10px;
 }
+
+#online {
+  font-size: 14px;
+  color: #9ca3af;
+}
 </style>
 
 </head>
@@ -75,6 +85,7 @@ input {
 <div class="container">
 
 <h1>📈 Signal Trading Pro</h1>
+<p id="online">👥 User online: 120</p>
 
 <div class="card">
   <div class="chart" id="chart"></div>
@@ -82,7 +93,7 @@ input {
 
 <div class="card">
   <h2>🔒 VIP Signal</h2>
-  <p>Signal lebih akurat + entry lengkap</p>
+  <p>Signal akurat + entry lengkap</p>
   <button class="btn-green" onclick="joinVIP()">Join VIP</button>
 </div>
 
@@ -94,46 +105,55 @@ input {
 
 <div class="card">
   <h2>🔥 Mulai Trading</h2>
-  <p>Gunakan platform terpercaya</p>
-  <button class="btn-green" onclick="goAjaib()">Daftar Ajaib</button>
+  <p>Platform terpercaya</p>
+  <button class="btn-green" onclick="goAjaib()">Daftar Sekarang</button>
 </div>
 
 <div class="card" id="signalBox" style="display:none;">
   <h2>📊 SIGNAL VIP</h2>
-  <p id="signalText">Loading...</p>
+  <p id="signalText">Menunggu signal...</p>
 </div>
 
 </div>
 
 <script>
-// ================= CHART DUMMY =================
+// ================= CHART =================
 const chart = document.getElementById("chart");
 
 function generateChart() {
   chart.innerHTML = "";
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 60; i++) {
     let bar = document.createElement("div");
     let height = Math.random() * 100;
-    bar.className = "bar";
-    if (Math.random() > 0.5) bar.classList.add("red");
 
+    bar.className = "bar " + (Math.random() > 0.5 ? "green" : "red");
     bar.style.height = height + "%";
-    bar.style.left = (i * 6) + "px";
+    bar.style.left = (i * 5) + "px";
 
     chart.appendChild(bar);
   }
 }
-generateChart();
+setInterval(generateChart, 2000);
 
-// ================= VIP =================
-function joinVIP(){
-  alert("Hubungi admin untuk join VIP 🚀");
+// ================= ONLINE USER FAKE =================
+setInterval(() => {
+  let online = 100 + Math.floor(Math.random() * 100);
+  document.getElementById("online").innerText = "👥 User online: " + online;
+}, 3000);
+
+// ================= VIP LOGIN =================
+window.onload = function(){
+  if(localStorage.getItem("vip") === "true"){
+    document.getElementById("signalBox").style.display = "block";
+    startSignal();
+  }
 }
 
 function loginVIP(){
   let code = document.getElementById("vipCode").value;
 
   if(code === "VIP123"){
+    localStorage.setItem("vip", "true");
     alert("Login berhasil 🔥");
     document.getElementById("signalBox").style.display = "block";
     startSignal();
@@ -142,23 +162,29 @@ function loginVIP(){
   }
 }
 
-// ================= SIGNAL FAKE =================
+// ================= SIGNAL =================
 function startSignal(){
   setInterval(() => {
     let arah = Math.random() > 0.5 ? "BUY" : "SELL";
     let pair = ["BTC/USDT","ETH/USDT","XAUUSD"];
     let randomPair = pair[Math.floor(Math.random()*pair.length)];
 
-    let text = arah + " " + randomPair +
-      " | Entry: " + (Math.random()*1000).toFixed(2) +
-      " | TP: +" + (Math.random()*50).toFixed(2) +
-      " | SL: -" + (Math.random()*30).toFixed(2);
+    let text = `
+${arah} ${randomPair}
+Entry: ${(Math.random()*1000).toFixed(2)}
+TP: +${(Math.random()*50).toFixed(2)}
+SL: -${(Math.random()*30).toFixed(2)}
+`;
 
     document.getElementById("signalText").innerText = text;
   }, 3000);
 }
 
-// ================= REFERRAL =================
+// ================= BUTTON =================
+function joinVIP(){
+  window.location.href = "https://wa.me/6285624264725";
+}
+
 function goAjaib(){
   window.location.href = "https://ajaib.co.id/register?referral=okiftptw";
 }
